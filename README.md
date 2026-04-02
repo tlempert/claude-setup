@@ -5,6 +5,42 @@ Designed to be shared across projects and team members.
 
 ---
 
+## New Machine Setup
+
+```bash
+# 1. Clone the repo
+git clone git@github.com:tlempert/claude-setup.git ~/src/tal/claude-setup
+
+# 2. Run the installer (symlinks everything into ~/.claude/)
+cd ~/src/tal/claude-setup
+chmod +x install.sh
+./install.sh
+
+# 3. Fill in your secret(s)
+#    Open ~/.claude/settings.json and set CORALOGIX_API_KEY
+
+# 4. Install RTK (token optimizer)
+cargo install rtk        # or: brew install rtk
+rtk --version            # should print rtk x.y.z
+
+# 5. Verify in Claude Code
+#    Open Claude Code and type /describe — if it responds, skills are live
+```
+
+## Keeping Up to Date
+
+When this repo changes (new skills, updated CLAUDE.md, etc.):
+
+```bash
+cd ~/src/tal/claude-setup
+git pull
+./install.sh   # re-runs safely — symlinks already in place, settings.json untouched
+```
+
+Because everything in `~/.claude/` is symlinked back to this repo, `git pull` is all you need — no manual file copying.
+
+---
+
 ## Methodology: ATDD Pipeline
 
 The workflow is built around **Acceptance Test-Driven Development** with a 5-pillar pipeline:

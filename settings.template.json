@@ -1,0 +1,138 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep",
+      "Bash(npx *)",
+      "Bash(npm *)",
+      "Bash(gh *)",
+      "Bash(node *)",
+      "Bash(./node_modules/.bin/* *)",
+      "Bash(ls *)",
+      "Bash(ls)",
+      "Bash(touch *)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(xargs *)",
+      "Bash(cut *)",
+      "Bash(tr *)",
+      "Bash(tee *)",
+      "Bash(date *)",
+      "Bash(date)",
+      "Bash(stat *)",
+      "Bash(ps *)",
+      "Bash(lsof *)",
+      "Bash(curl *)",
+      "Bash(env *)",
+      "Bash(env)",
+      "Bash(column *)",
+      "Bash(python *)",
+      "Bash(python3 *)",
+      "Bash(perl *)",
+      "Bash(sed *)",
+      "Bash(awk *)",
+      "Bash(git *)",
+      "Bash(jq *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(sort *)",
+      "Bash(uniq *)",
+      "Bash(diff *)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(rg *)",
+      "Bash(echo *)",
+      "Bash(printf *)",
+      "Bash(dirname *)",
+      "Bash(basename *)",
+      "Bash(realpath *)",
+      "Bash(which *)",
+      "Bash(pwd)",
+      "Read(//Users/<you>/.claude/skills/**)",
+      "Skill(*)"
+    ],
+    "additionalDirectories": [
+      "/Users/<you>/.claude/skills"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/<you>/.claude/hooks/rtk-rewrite.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx -y ccstatusline@latest --hook"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx -y ccstatusline@latest --hook"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "claude-mem@thedotmack": true,
+    "superpowers@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "thedotmack": {
+      "source": {
+        "source": "github",
+        "repo": "thedotmack/claude-mem"
+      }
+    }
+  },
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "coralogix-server": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://api.us2.coralogix.com/mgmt/api/v1/mcp",
+        "--header",
+        "Authorization:${CORALOGIX_API_KEY}"
+      ],
+      "env": {
+        "CORALOGIX_API_KEY": "<your-coralogix-api-key>"
+      }
+    }
+  },
+  "effortLevel": "medium",
+  "autoDreamEnabled": true
+}
