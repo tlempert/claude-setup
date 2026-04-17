@@ -50,6 +50,7 @@ brainstorm-spec → write-gwt-spec → run-acceptance-pipeline → architecture-
 ```
 
 Core principles:
+
 - **Ceiling first**: acceptance tests define observable behavior before any code
 - **Floor next**: unit test stubs scaffold what must be proved
 - **Guard dog**: mutation tests verify assertions, not just coverage
@@ -121,15 +122,18 @@ Located in `~/.claude/skills/`. Invoked via the `Skill` tool in Claude Code.
 Configured in `~/.claude/settings.json` under `mcpServers`.
 
 ### sequential-thinking
+
 ```json
 {
   "command": "npx",
   "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
 }
 ```
+
 Adds structured multi-step reasoning to complex tasks.
 
 ### coralogix-server
+
 ```json
 {
   "command": "npx",
@@ -142,9 +146,11 @@ Adds structured multi-step reasoning to complex tasks.
   "env": { "CORALOGIX_API_KEY": "<your-key>" }
 }
 ```
+
 Query logs, traces, incidents, and alerts directly in Claude via Dataprime.
 
 **Usage rules:**
+
 - Always call `read_dataprime_intro_docs` before any query
 - Always call `get_datetime` before any time-bounded query
 - Query syntax: `source logs | filter $l.subsystemname == 'my-service'`
@@ -198,32 +204,32 @@ Configured in `~/.claude/settings.json` under `enabledPlugins`.
 Configured in `~/.claude/settings.json` under `hooks`.
 
 ### PreToolUse: rtk-rewrite
+
 Rewrites all `Bash` commands through RTK (Rust Token Killer) for 60-90% token savings.
+
 ```json
 {
   "matcher": "Bash",
   "hooks": [{ "type": "command", "command": "/Users/<you>/.claude/hooks/rtk-rewrite.sh" }]
 }
 ```
+
 > Note: `~` is not expanded in `settings.json` — use the full absolute path.
 
 ### PreToolUse: backslash-mcp-guard
-Security guard on all MCP tool calls.
-```json
-{
-  "matcher": "mcp__.*",
-  "hooks": [{ "type": "command", "command": "~/.backslash/hooks/backslash-mcp-guard.sh" }]
-}
-```
 
 ### PreToolUse + UserPromptSubmit: ccstatusline
+
 Updates the status line in Claude Code UI on skill invocations and prompt submissions.
+
 ```json
 { "type": "command", "command": "npx -y ccstatusline@latest --hook" }
 ```
 
 ### RTK (Rust Token Killer)
+
 `rtk` transparently proxies all CLI commands through a token-efficient filter.
+
 ```bash
 rtk gain              # Show savings analytics
 rtk gain --history    # Per-command usage history
@@ -265,6 +271,7 @@ Location: `~/.claude/keybindings.json`
 ## Allowed Permissions
 
 Key `Bash` permissions pre-approved in `settings.json`:
+
 - `git *`, `gh *`, `npm *`, `npx *`, `node *`
 - `python3 *`, `jq *`, `curl *`
 - Standard file ops: `ls`, `cat`, `head`, `tail`, `grep`, `rg`, `find`, `sed`, `awk`
